@@ -1,0 +1,10 @@
+{
+  "collections": {
+    "events": {
+      "fields": {
+        "event": "string",
+        "timestamp": "number"
+      }
+    }
+  }
+}
