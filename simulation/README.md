@@ -1,10 +1,10 @@
-# Simulation Module
+# BED v3 Thesis Source
 
-This directory contains the behavioral simulation engine for BED v3, including:
+This directory contains the LaTeX source for the BED v3 Integrated Master
+Research Document.
 
-- Recency, habit, and responsiveness dynamics
-- Logistic hazard model
-- CMDP solver with budget and fairness constraints
-- Simulation runner and configuration files
+The file `main.tex` is a placeholder that will be replaced with the full
+manuscript. Figures, tables, and appendices may be added here as needed.
 
-This module is safe for public release and excludes all private tuning logic.
+All sensitive or proprietary content remains private and is not included in this
+public repository.
