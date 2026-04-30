@@ -1,0 +1,53 @@
+\chapter{CMDP Derivations}
+
+\section{Lagrangian Relaxation}
+
+The constrained optimization problem:
+
+
+\[
+\max_{\pi} \mathbb{E}_{\pi}\left[\sum_{t=0}^{\infty} \gamma^t r(s_t,a_t)\right]
+\quad \text{s.t.} \quad
+\mathbb{E}_{\pi}\left[\sum_{t=0}^{\infty} \gamma^t c(s_t,a_t)\right] \le B
+\]
+
+
+
+is relaxed using a Lagrange multiplier $\lambda \ge 0$:
+
+
+\[
+\mathcal{L}(\pi,\lambda) =
+\mathbb{E}_{\pi}\left[\sum_{t=0}^{\infty} \gamma^t (r(s_t,a_t) - \lambda c(s_t,a_t))\right]
++ \lambda B.
+\]
+
+
+
+\section{Constrained Bellman Equation}
+
+The Lagrangian value function satisfies:
+
+
+\[
+V_\lambda(s) =
+\max_{a \in A} \left[
+r(s,a) - \lambda c(s,a)
++ \gamma \sum_{s'} P(s'|s,a) V_\lambda(s')
+\right].
+\]
+
+
+
+\section{Dual Optimization}
+
+The dual problem is:
+
+
+\[
+\min_{\lambda \ge 0} \max_{\pi} \mathcal{L}(\pi,\lambda).
+\]
+
+
+
+This yields a policy that is both reward-maximizing and budget-feasible.
