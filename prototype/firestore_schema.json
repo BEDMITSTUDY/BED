@@ -1,0 +1,10 @@
+{
+  "EventLog": {
+    "timestamp": "number",
+    "event_type": "string",
+    "treatment_group": "string",
+    "bed_tokens": "number",
+    "node_id": "string",
+    "action_id": "string"
+  }
+}
