@@ -1,22 +1,23 @@
 """
-BED v3 — Simulation Runner (Public Version)
-
-Runs a synthetic simulation of behavioral state transitions, hazard events,
-and CMDP policy decisions.
-"""
-
-import random
-from bed_engine import BehavioralState
-from hazard_model import HazardModel
-from cmdp_solver import CMDPSolver
-
 class SimulationRunner:
+    """
+    Runs a public-safe BED v3 simulation over a fixed number of steps.
+    """
+
     def __init__(self, steps=100):
         self.steps = steps
         self.hazard = HazardModel()
         self.policy = CMDPSolver()
 
     def run(self):
+        """
+        Execute the simulation loop.
+
+        Returns:
+            list[dict]: Time-series history of state, actions, and events.
+        """
+
+        random.seed(42)  # reproducibility
         state = BehavioralState()
         history = []
 
