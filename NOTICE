@@ -1,0 +1,20 @@
+BED v3 — NOTICE
+
+This repository contains an academic, open-science implementation of the
+Behavioral Engine for Demand (BED) v3 for research, teaching, and reproducibility
+purposes.
+
+The following components are intentionally NOT included in this repository:
+
+1. Advanced CMDP tuning parameters
+2. Proprietary reward engineering logic
+3. Real-world deployment data
+4. Partner integrations or production APIs
+5. Internal research notes, experiments, or unpublished extensions
+6. Future versions of BED (v4, v5, v6, etc.)
+
+The public version of BED v3 is designed to demonstrate the architecture,
+simulation framework, and prototype flow, but it does not include the full
+intellectual property required to deploy BED in production environments.
+
+For collaboration inquiries, please contact the project author.
