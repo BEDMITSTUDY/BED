@@ -18,4 +18,33 @@ intentionally excluded (see NOTICE).
 ---
 
 ## Repository Structure
+simulation/   - Behavioral engine, hazard model, CMDP solver, simulation runner
+prototype/    - Cloud function backend, static web page, QR generator
+data/         - Synthetic MIT micro‑pilot dataset + schema
+analysis/     - Jupyter notebooks, figures, tables
+docs/         - Architecture diagrams, pilot specification, research agenda
+thesis/       - Full LaTeX source for the BED v3 research manuscript
+
+---
+
+## License
+
+Released under the MIT Non‑Commercial License (see LICENSE).
+
+---
+
+## Citation
+
+If you use this repository, please cite:
+
+*Kunzmann, B. (2026). Behavioral Engine for Demand (BED) v3:  
+A Constrained Markov Decision Process for Timing‑Optimized Incentive Design.  
+MIT Center for Transportation & Logistics.*
+
+---
+
+## Contact
+
+For collaboration inquiries, please contact the project author.
+
 
