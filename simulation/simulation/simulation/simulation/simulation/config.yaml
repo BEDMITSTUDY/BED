@@ -1,0 +1,11 @@
+# BED v3 — Public Simulation Config
+
+simulation:
+  steps: 500
+  seed: 42
+
+policy:
+  budget: 0.10
+
+hazard_model:
+  type: logistic
