@@ -5,6 +5,17 @@
   <img src="https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/LaTeX-MIT%20Thesis%20Style-lightgrey?style=for-the-badge" />
 </p>
+## Table of Contents
+- [Overview](#overview)
+- [Repository Structure](#repository-structure)
+- [Quickstart](#quickstart)
+- [Simulation](#simulation)
+- [Prototype](#prototype)
+- [Data](#data)
+- [Documentation](#documentation)
+- [Thesis](#thesis)
+- [License](#license)
+- [Citation](#citation)
 # BED v3 Thesis Source
 
 This directory contains the LaTeX source for the BED v3 Integrated Master
