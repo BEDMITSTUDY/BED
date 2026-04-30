@@ -11,7 +11,22 @@ operational constraints. It enables experimentation with different incentive
 policies, behavioral parameters, and budget levels without requiring access to
 real-world user data. This chapter describes the architecture, components, and
 workflow of the BED v3 simulation environment.
-
+\begin{table}[h!]
+\centering
+\caption{Simulation parameters for synthetic population generation.}
+\begin{tabular}{lll}
+\toprule
+\textbf{Parameter} & \textbf{Symbol} & \textbf{Value / Distribution} \\
+\midrule
+Baseline hazard rate & $\lambda_0$ & $\text{Uniform}(0.01, 0.05)$ \\
+Habit growth rate & $\alpha$ & $\text{Normal}(0.10, 0.02)$ \\
+Incentive responsiveness & $\beta$ & $\text{Lognormal}(0.2, 0.1)$ \\
+Decay rate & $\delta$ & 0.85 \\
+Population size & $N$ & 10{,}000 \\
+\bottomrule
+\end{tabular}
+\label{tab:simulation_parameters}
+\end{table}
 \section{Overview}
 
 The simulation environment integrates four core modules:
