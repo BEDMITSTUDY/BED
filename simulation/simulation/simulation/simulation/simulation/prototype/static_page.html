@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BED v3 Prototype</title>
+</head>
+<body>
+    <h2>BED v3 Minimal Prototype</h2>
+    <p>This page simulates a QR-triggered interaction.</p>
+
+    <button onclick="sendEvent()">Log Event</button>
+
+    <script>
+        async function sendEvent() {
+            await fetch("https://YOUR_CLOUD_FUNCTION_URL", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ event: "visit" })
+            });
+            alert("Event logged.");
+        }
+    </script>
+</body>
+</html>
