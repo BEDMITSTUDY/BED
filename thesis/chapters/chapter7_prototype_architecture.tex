@@ -1,1 +1,144 @@
+\chapter{Prototype Architecture}
 
+To validate the feasibility of the Behavioral Engine for Demand (BED) in a
+real-world setting, a lightweight, privacy-safe prototype was developed. The
+prototype demonstrates how BED can be deployed using modern serverless
+infrastructure, enabling real-time event logging, treatment assignment, and
+behavioral state updates without requiring integration with point-of-sale (POS)
+systems or sensitive user data. This chapter describes the architecture,
+components, and data flow of the BED v3 prototype.
+
+\section{Design Principles}
+
+The prototype was designed according to four principles:
+
+\begin{enumerate}
+    \item \textbf{Safety}: No personally identifiable information (PII) is
+    collected or stored.
+    \item \textbf{Simplicity}: The system uses minimal infrastructure to reduce
+    operational overhead.
+    \item \textbf{Scalability}: Serverless components automatically scale with
+    traffic.
+    \item \textbf{Modularity}: Each component can be replaced or extended
+    independently.
+\end{enumerate}
+
+These principles ensure that the prototype is suitable for academic research,
+field experiments, and early-stage deployments.
+
+\section{System Overview}
+
+The prototype consists of four components:
+
+\begin{enumerate}
+    \item \textbf{QR Code Trigger}: Users scan a QR code that encodes a URL.
+    \item \textbf{Static Web Page}: A lightweight HTML page executes a POST
+    request to the backend.
+    \item \textbf{Serverless Backend}: A cloud function assigns treatments and
+    logs events.
+    \item \textbf{Firestore Event Log}: A structured database stores synthetic
+    event records.
+\end{enumerate}
+
+This architecture mirrors the closed-loop structure of BED while remaining
+simple enough for rapid experimentation.
+
+\section{QR Code Trigger}
+
+The prototype begins with a QR code printed on a physical card or displayed on a
+screen. The QR code encodes a URL pointing to the static web page. When scanned,
+the user’s device opens the page in a browser. No user identifiers are
+collected; each scan is treated as an independent event.
+
+\section{Static Web Page}
+
+The static page is implemented as a minimal HTML file. Upon loading, it
+automatically sends a POST request to the serverless backend:
+
+\begin{itemize}
+    \item event type (e.g., ``scan''),
+    \item timestamp,
+    \item optional synthetic identifiers (if enabled).
+\end{itemize}
+
+The page itself contains no interactive elements and performs no tracking. Its
+sole purpose is to trigger the backend event pipeline.
+
+\section{Serverless Backend}
+
+The backend is implemented as a cloud function that performs three tasks:
+
+\begin{enumerate}
+    \item \textbf{Treatment Assignment}: Randomly assigns users to control or
+    treatment groups.
+    \item \textbf{Incentive Allocation}: Determines whether a BED token or
+    synthetic reward is issued.
+    \item \textbf{Event Logging}: Writes a structured event record to Firestore.
+\end{enumerate}
+
+The backend does not store IP addresses, device identifiers, or cookies. All
+events are synthetic and anonymized.
+
+\section{Event Logging Schema}
+
+Events are stored in a Firestore collection using the following schema:
+
+\begin{itemize}
+    \item \texttt{timestamp}: time of event,
+    \item \texttt{event\_type}: type of action (e.g., scan),
+    \item \texttt{treatment\_group}: control or treatment,
+    \item \texttt{bed\_tokens}: number of tokens assigned,
+    \item \texttt{node\_id}: synthetic state identifier,
+    \item \texttt{action\_id}: synthetic action identifier.
+\end{itemize}
+
+This schema mirrors the event log structure used in the simulation environment,
+enabling direct comparison between simulated and prototype data.
+
+\section{Closed-Loop Alignment with BED}
+
+Although simplified, the prototype preserves the essential closed-loop structure
+of BED:
+
+\begin{enumerate}
+    \item An event is triggered (QR scan).
+    \item The backend assigns a treatment.
+    \item The event is logged.
+    \item The log can be used to update behavioral state offline.
+\end{enumerate}
+
+This demonstrates how BED can be deployed in real-world environments without
+requiring invasive data collection or complex integrations.
+
+\section{Scalability and Deployment}
+
+The prototype is fully serverless:
+
+\begin{itemize}
+    \item The static page is hosted on a CDN.
+    \item The backend scales automatically with traffic.
+    \item Firestore handles concurrent writes without manual provisioning.
+\end{itemize}
+
+This architecture supports thousands of events per second with minimal cost,
+making it suitable for field experiments and pilot deployments.
+
+\section{Limitations}
+
+The prototype is intentionally minimal and has several limitations:
+
+\begin{itemize}
+    \item It does not track user identity or longitudinal behavior.
+    \item It does not integrate with POS or transactional systems.
+    \item It does not perform real-time state updates.
+\end{itemize}
+
+These limitations are acceptable for early-stage experimentation and can be
+addressed in future iterations.
+
+\section{Summary}
+
+The BED v3 prototype demonstrates a practical, safe, and scalable approach to
+deploying closed-loop incentive systems. It validates the feasibility of the
+BED architecture and provides a foundation for real-world experimentation. The
+next chapter describes the experimental design used to evaluate BED policies.
