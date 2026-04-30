@@ -1,0 +1,81 @@
+\chapter{Background}
+
+Demand shaping has long been a central challenge in operations, retail, and
+energy systems. Traditional approaches rely on static incentives, broad
+discounting, or heuristic rules that fail to account for individual behavioral
+dynamics. This chapter reviews the theoretical foundations that motivate the
+Behavioral Engine for Demand (BED), including behavioral economics, habit
+formation, reinforcement learning, and constrained decision-making.
+
+\section{Behavioral Economics and Incentive Response}
+
+Behavioral economics provides a framework for understanding how individuals
+respond to incentives in ways that deviate from classical rational models.
+Empirical studies consistently show that consumers exhibit:
+
+\begin{itemize}
+    \item \textbf{Recency effects}: recent actions disproportionately influence
+    future behavior.
+    \item \textbf{Habit formation}: repeated actions increase the likelihood of
+    repetition, independent of utility.
+    \item \textbf{Responsiveness heterogeneity}: individuals differ in their
+    sensitivity to incentives.
+\end{itemize}
+
+These effects motivate the BED state representation, which tracks recency,
+habit, and responsiveness as latent behavioral variables.
+
+\section{Demand Shaping in Retail and Energy Systems}
+
+Demand shaping has been studied in domains such as:
+
+\begin{itemize}
+    \item \textbf{Retail}: loyalty programs, coupons, targeted promotions.
+    \item \textbf{Energy}: time-of-use pricing, demand response programs.
+    \item \textbf{Transportation}: congestion pricing, mobility incentives.
+\end{itemize}
+
+However, most systems rely on static or rule-based policies. They do not adapt
+to individual behavioral trajectories, nor do they optimize incentives under
+budget constraints. BED addresses these limitations by introducing a closed-loop
+policy that learns from behavioral state transitions.
+
+\section{Reinforcement Learning Foundations}
+
+Reinforcement learning (RL) provides a mathematical framework for sequential
+decision-making under uncertainty. In RL, an agent observes a state, selects an
+action, and receives a reward. BED draws from RL in three ways:
+
+\begin{enumerate}
+    \item \textbf{State representation}: recency, habit, and responsiveness form
+    a Markovian behavioral state.
+    \item \textbf{Transition dynamics}: incentives influence state evolution.
+    \item \textbf{Policy optimization}: actions are chosen to maximize long-term
+    behavioral outcomes.
+\end{enumerate}
+
+Unlike classical RL, BED must operate under strict budget constraints and
+fairness requirements, motivating the use of constrained MDPs.
+
+\section{Constrained Markov Decision Processes}
+
+A Constrained Markov Decision Process (CMDP) extends the MDP framework by
+introducing resource constraints. In BED, the primary constraint is the
+incentive budget. The CMDP formulation ensures that:
+
+\begin{itemize}
+    \item incentives are allocated efficiently,
+    \item long-term behavioral impact is maximized,
+    \item fairness and exposure constraints are respected.
+\end{itemize}
+
+This structure allows BED to balance short-term engagement with long-term
+behavioral shaping.
+
+\section{Summary}
+
+The BED framework integrates insights from behavioral economics, demand shaping,
+reinforcement learning, and constrained optimization. These foundations
+establish the need for a system that models individual behavior, updates
+dynamically, and allocates incentives optimally under constraints. The next
+chapter introduces the system architecture that operationalizes these ideas.
