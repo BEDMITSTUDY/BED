@@ -1,0 +1,115 @@
+\chapter{System Overview of BED}
+
+The Behavioral Engine for Demand (BED) is a closed-loop incentive system that
+integrates behavioral modeling, constrained optimization, simulation, and
+real-time experimentation. This chapter provides a high-level overview of the
+BED architecture, including its conceptual components, data flow, and
+operational logic. The goal is to establish a unified framework that connects
+behavioral theory with practical incentive deployment.
+
+\section{Conceptual Architecture}
+
+BED is designed as a modular system composed of four core components:
+
+\begin{enumerate}
+    \item \textbf{Behavioral State Engine}: Tracks latent behavioral variables
+    such as recency, habit, and responsiveness.
+    \item \textbf{Hazard Model}: Predicts the probability of an event (e.g.,
+    purchase, engagement) given the current behavioral state.
+    \item \textbf{CMDP Policy Engine}: Allocates incentives optimally under
+    budget and fairness constraints.
+    \item \textbf{Experimentation and Logging Layer}: Captures real-time events
+    and updates behavioral states based on observed outcomes.
+\end{enumerate}
+
+These components form a closed-loop system in which incentives influence
+behavior, behavior influences state transitions, and state transitions inform
+future incentives.
+
+\section{Closed-Loop Data Flow}
+
+The BED system operates through a continuous feedback loop:
+
+\begin{enumerate}
+    \item \textbf{Observation}: The system observes the user's current
+    behavioral state.
+    \item \textbf{Prediction}: The hazard model estimates the probability of an
+    event occurring.
+    \item \textbf{Decision}: The CMDP policy engine selects an incentive action
+    subject to budget constraints.
+    \item \textbf{Deployment}: The incentive is delivered to the user.
+    \item \textbf{Outcome}: The user either engages (event) or does not engage
+    (no event).
+    \item \textbf{Update}: The behavioral state engine updates recency, habit,
+    and responsiveness based on the outcome.
+\end{enumerate}
+
+This loop repeats for every user interaction, enabling adaptive and personalized
+incentive strategies.
+
+\section{Behavioral State Representation}
+
+BED models behavior using three latent variables:
+
+\begin{itemize}
+    \item \textbf{Recency ($r$)}: Measures how recently the user engaged.
+    \item \textbf{Habit ($h$)}: Captures the strength of repeated behavior.
+    \item \textbf{Responsiveness ($\rho$)}: Represents sensitivity to incentives.
+\end{itemize}
+
+These variables form a Markovian state that evolves according to interpretable
+update rules. Incentives influence state transitions by increasing the
+likelihood of engagement and accelerating habit formation.
+
+\section{Hazard-Based Event Prediction}
+
+The hazard model estimates the probability of an event given the behavioral
+state. BED uses a logistic hazard function:
+
+
+
+\[
+P(\text{event} \mid r, h, \rho) = \sigma(\beta_0 + \beta_r r + \beta_h h + \beta_\rho \rho)
+\]
+
+
+
+where $\sigma$ is the logistic function. This formulation allows BED to capture
+nonlinear behavioral effects and heterogeneity in responsiveness.
+
+\section{CMDP Policy Engine}
+
+The incentive allocation problem is formulated as a Constrained Markov Decision
+Process (CMDP). The CMDP ensures that:
+
+\begin{itemize}
+    \item incentives are allocated efficiently,
+    \item long-term behavioral impact is maximized,
+    \item budget and fairness constraints are respected.
+\end{itemize}
+
+The CMDP policy engine selects actions that balance immediate engagement with
+long-term habit formation.
+
+\section{Experimentation and Logging Layer}
+
+To support real-world deployment, BED includes a lightweight experimentation
+layer that logs events, treatments, and outcomes. This layer enables:
+
+\begin{itemize}
+    \item real-time state updates,
+    \item A/B and multi-arm experiments,
+    \item evaluation of policy performance,
+    \item safe and privacy-aware data collection.
+\end{itemize}
+
+In BED v3, this layer is implemented using a serverless QR-to-cloud prototype
+that logs synthetic events to a Firestore database.
+
+\section{Summary}
+
+The BED system integrates behavioral modeling, hazard-based prediction,
+constrained optimization, and real-time experimentation into a unified
+closed-loop architecture. This chapter establishes the conceptual foundation for
+the behavioral model (Chapter 4), CMDP formulation (Chapter 5), and simulation
+environment (Chapter 6) that follow.
