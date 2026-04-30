@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: "Behavioral Engine for Demand (BED) v3"
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Kunzmann
+    given-names: Brett
+date-released: 2026-04-30
+version: "3.0"
+preferred-citation:
+  type: thesis
+  title: "Behavioral Engine for Demand (BED) v3: A Constrained Markov Decision Process for Timing-Optimized Incentive Design"
+  authors:
+    - family-names: Kunzmann
+      given-names: Brett
+  institution: "Massachusetts Institute of Technology"
+  year: 2026
