@@ -7,6 +7,22 @@ describes how incentives influence user state transitions, the CMDP determines
 impact under operational constraints. The CMDP framework ensures that BED
 allocates incentives efficiently, fairly, and in a manner consistent with
 organizational policy.
+\begin{table}[h!]
+\centering
+\caption{CMDP state variables used in the BED formulation.}
+\begin{tabular}{ll}
+\toprule
+\textbf{State Variable} & \textbf{Description} \\
+\midrule
+$h_t$ & Habit strength at time $t$ \\
+$r_t$ & Recency (time since last event) \\
+$i_t$ & Time since last incentive \\
+$b_t$ & Remaining budget \\
+$f_t$ & Fairness constraint state \\
+\bottomrule
+\end{tabular}
+\label{tab:cmdp_state_variables}
+\end{table}
 
 \section{Overview}
 
