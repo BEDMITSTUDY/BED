@@ -1,1 +1,203 @@
+\chapter{Behavioral State Model}
+
+The Behavioral Engine for Demand (BED) models individual behavior using a
+low-dimensional, interpretable state representation that captures how users
+respond to incentives over time. This chapter formalizes the behavioral state
+variables, transition dynamics, and event probability model that form the core
+of BED v3. The behavioral model integrates insights from habit formation,
+recency effects, incentive decay, and heterogeneous responsiveness.
+
+\section{Overview}
+
+BED represents each user with a latent behavioral state:
+
+
+\[
+s_t = (r_t, h_t, \rho_t, \Delta_t, I_{t-1}),
+\]
+
+
+where:
+\begin{itemize}
+    \item $r_t$ = recency (time since last event),
+    \item $h_t$ = habit strength,
+    \item $\rho_t$ = responsiveness to incentives,
+    \item $\Delta_t$ = time since last incentive,
+    \item $I_{t-1}$ = magnitude of the last incentive delivered.
+\end{itemize}
+
+This state is a sufficient statistic for predicting event probability and
+determining optimal incentive timing, consistent with the BED\_MIT.pdf statement:
+\textit{“The behavioral state is a sufficient statistic for predicting event
+probability and determining optimal incentive timing.”}
+
+\section{Recency Dynamics}
+
+Recency captures how long it has been since the user last engaged in the target
+behavior. It evolves deterministically:
+
+
+\[
+r_{t+1} =
+\begin{cases}
+0 & \text{if an event occurs}, \\
+r_t + 1 & \text{otherwise}.
+\end{cases}
+\]
+
+
+
+Recency influences event probability through a negative coefficient in the
+hazard model, reflecting the empirical observation that the likelihood of
+engagement decays with time since last action.
+
+\section{Habit Formation}
+
+Habit strength represents the long-term behavioral momentum of the user. It
+increases when events occur and decays during inactivity:
+
+
+\[
+h_{t+1} =
+\begin{cases}
+\alpha h_t + \gamma & \text{if an event occurs}, \\
+\alpha h_t & \text{otherwise},
+\end{cases}
+\]
+
+
+where:
+\begin{itemize}
+    \item $\alpha \in (0,1)$ is the habit retention factor,
+    \item $\gamma > 0$ is the reinforcement increment.
+\end{itemize}
+
+This formulation matches the habit dynamics described in your uploaded BED
+documents:
+\textit{“Habit strength evolves over time and influences return probability.”}
+
+\section{Responsiveness}
+
+Responsiveness $\rho_t$ captures how sensitive the user is to incentives. It
+represents heterogeneity across individuals and can be:
+\begin{itemize}
+    \item fixed (segment-based),
+    \item estimated (Bayesian updating),
+    \item learned (via RL or contextual bandits).
+\end{itemize}
+
+In the public-safe BED v3 model, responsiveness is treated as a latent but
+slow-moving parameter that modulates incentive effectiveness.
+
+\section{Incentive Decay}
+
+Incentives have diminishing influence over time. BED models this using an
+exponential decay function:
+
+
+\[
+\text{EffectiveStrength}_t = I_{t-1} e^{-\lambda \Delta_t},
+\]
+
+
+where:
+\begin{itemize}
+    \item $I_{t-1}$ is the last incentive magnitude,
+    \item $\Delta_t$ is time since that incentive,
+    \item $\lambda$ is the decay rate.
+\end{itemize}
+
+This aligns with the incentive decay formulation in BED\_MIT.pdf:
+
+
+\[
+\text{EffectiveStrength} = I e^{-\lambda \tau}.
+\]
+
+
+
+\section{State Update Rules}
+
+The full behavioral state update is:
+
+
+
+\[
+\begin{aligned}
+r_{t+1} &= 
+\begin{cases}
+0 & \text{if event occurs}, \\
+r_t + 1 & \text{otherwise},
+\end{cases} \\
+\Delta_{t+1} &= 
+\begin{cases}
+0 & \text{if an incentive is delivered}, \\
+\Delta_t + 1 & \text{otherwise},
+\end{cases} \\
+h_{t+1} &= 
+\begin{cases}
+\alpha h_t + \gamma & \text{if event occurs}, \\
+\alpha h_t & \text{otherwise},
+\end{cases} \\
+I_t &= a_t,
+\end{aligned}
+\]
+
+
+where $a_t$ is the incentive action chosen by the CMDP policy engine.
+
+These update rules match the pseudocode in your uploaded documents (Algorithm 1).
+
+\section{Hazard-Based Event Probability}
+
+BED predicts the probability of an event using a logistic hazard model:
+
+
+\[
+P(\text{event}_t = 1 \mid s_t) =
+\sigma\left(
+\beta_0
++ \beta_r r_t
++ \beta_h h_t
++ \beta_\rho \rho_t
++ \beta_I I_{t-1} e^{-\lambda \Delta_t}
+\right),
+\]
+
+
+where $\sigma$ is the logistic function.
+
+This formulation incorporates:
+\begin{itemize}
+    \item recency decay,
+    \item habit reinforcement,
+    \item incentive decay,
+    \item responsiveness heterogeneity.
+\end{itemize}
+
+It is consistent with the hazard-based response model in BED\_MIT.pdf:
+
+
+\[
+h(\tau \mid I) = h_0(\tau)\exp(\beta I e^{-\lambda \tau}).
+\]
+
+
+
+\section{Interpretation}
+
+The behavioral model provides a compact, interpretable representation of user
+behavior. It enables BED to:
+\begin{itemize}
+    \item predict event likelihood,
+    \item evaluate incentive effectiveness,
+    \item update behavioral state in real time,
+    \item support CMDP-based policy optimization.
+\end{itemize}
+
+\section{Summary}
+
+This chapter formalized the behavioral state model underlying BED v3. The next
+chapter presents the CMDP formulation that uses this state representation to
+allocate incentives optimally under budget and fairness constraints.
 
