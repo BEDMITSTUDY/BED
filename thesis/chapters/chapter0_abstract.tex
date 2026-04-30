@@ -1,5 +1,32 @@
 \chapter*{Abstract}
 
-This thesis presents the Behavioral Engine for Demand (BED), a closed-loop
-incentive system that integrates behavioral modeling, constrained optimization,
-and real-time experimentation to shape consumer demand.
+Organizations across retail, energy, and mobility increasingly rely on
+incentives to influence consumer behavior, yet most incentive systems remain
+static, costly, and behaviorally uninformed. Traditional approaches—such as
+blanket discounts, loyalty points, or heuristic promotional rules—fail to
+account for how individuals form habits, respond to incentives, and evolve over
+time. As a result, firms routinely overspend on promotions while missing
+opportunities to shape long-term behavioral trajectories.
+
+This thesis presents the Behavioral Engine for Demand (BED), a closed-loop,
+state-based framework for timing-optimized incentive design. BED models
+individual behavior using three latent variables—recency, habit, and
+responsiveness—and formulates incentive allocation as a Constrained Markov
+Decision Process (CMDP) that respects budget and fairness constraints. The
+framework integrates behavioral modeling, hazard-based event prediction,
+constrained optimization, simulation, and prototype implementation into a
+unified research architecture.
+
+BED v3 introduces four major contributions. First, it formalizes a behavioral
+state model that captures how incentives influence habit formation and
+responsiveness over time. Second, it develops a CMDP formulation that allocates
+incentives efficiently under operational constraints. Third, it provides a
+complete simulation environment that evaluates policy performance using
+synthetic populations and behavioral dynamics. Fourth, it implements a
+serverless QR-to-cloud prototype that demonstrates how BED can be deployed
+safely and scalably in real-world settings.
+
+Together, these components establish BED as a practical and theoretically
+grounded approach to demand shaping. The framework enables organizations to
+transition from static, intuition-driven incentives to adaptive, data-driven,
+and behaviorally informed policies that optimize long-term outcomes.
