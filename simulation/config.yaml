@@ -1,0 +1,14 @@
+# BED v3 Simulation Configuration (Public Version)
+
+simulation:
+  steps: 100
+
+hazard_model:
+  base_rate: 0.05
+  recency_weight: -0.1
+  habit_weight: 0.4
+  responsiveness_weight: 0.3
+
+cmdp_solver:
+  budget: 100
+  cost_per_action: 1
