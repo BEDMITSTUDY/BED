@@ -1,0 +1,39 @@
+\section*{0.1 One-Slide Summary}
+\addcontentsline{toc}{section}{0.1 One-Slide Summary}
+
+\textbf{Problem:}  
+Demand forecasting treats consumer behavior as exogenous and uncontrollable.  
+No existing framework closes the loop between demand prediction and active demand intervention.  
+Supply chains absorb demand volatility as cost rather than managing it as a controllable variable.
+
+\textbf{Idea:}  
+Treat incentives as a real-time control signal.  
+Optimize \emph{timing}, not just magnitude, using a constrained Markov decision process (CMDP) that adapts to behavioral state, habit strength, and fairness constraints.
+
+\textbf{Key Mechanism:}
+\begin{itemize}
+  \item Behavioral state includes recency, habit, time since last incentive, budget state, and fairness state.
+  \item BED policy selects a micro-incentive (BED Tokens) at each decision epoch.
+  \item BED Tokens map into existing reward units (points, credits, miles, discounts) through loyalty APIs.
+  \item Budget and fairness constraints enforced at the policy level.
+\end{itemize}
+
+\textbf{Architecture:}
+\begin{itemize}
+  \item \emph{Prototype:} QR-based, serverless, minimal-integration system for field experiments.
+  \item \emph{Production:} Direct integration with loyalty systems, POS data streams, and behavioral state estimators.
+\end{itemize}
+
+\textbf{Key Results Targets:}
+\begin{itemize}
+  \item Demand lift $\geq 5\%$ relative to control at statistically significant levels.
+  \item Cost-per-unit-shifted $<\$0.50$, ensuring economic sustainability.
+  \item Heterogeneous treatment effects across consumer segments and store types.
+\end{itemize}
+
+\textbf{Next Steps:}
+\begin{itemize}
+  \item Complete simulation validation.
+  \item Launch MIT CTL–sponsored field trial (40–200 retail nodes, 4–8 week window).
+  \item Target publication in top-tier operations research venues.
+\end{itemize}
