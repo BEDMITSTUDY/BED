@@ -1,22 +1,30 @@
-"""
-BED v3 — Behavioral Engine (Public Version)
-
-This file implements the public-facing behavioral state update logic for BED v3.
-It includes recency, habit, and responsiveness updates, but excludes all private
-tuning parameters and proprietary heuristics.
-"""
-
 class BehavioralState:
+    """
+    Public-facing behavioral state for BED v3.
+
+    Attributes:
+        r (float): Recency state.
+        h (float): Habit strength.
+        rho (float): Incentive responsiveness.
+    """
+
     def __init__(self, recency=0.0, habit=0.0, responsiveness=0.0):
         self.r = recency
         self.h = habit
         self.rho = responsiveness
 
-    def update(self, action, event):
+    def update(self, action: int, event: int):
         """
-        Public-safe update rules.
-        These are simplified versions of the internal BED dynamics.
+        Update the behavioral state using simplified public-safe dynamics.
+
+        Args:
+            action (int): 1 if an incentive is given, 0 otherwise.
+            event (int): 1 if an event occurred, 0 otherwise.
+
+        Returns:
+            BehavioralState: Updated state.
         """
+
         # Recency update
         self.r = 0 if event else self.r + 1
 
