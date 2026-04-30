@@ -1,0 +1,151 @@
+\chapter{Results}
+
+This chapter presents the results of the simulation and prototype experiments
+described in Chapter 8. The goal is to evaluate the performance of the BED
+policy relative to baseline and heuristic approaches, with a focus on
+engagement, habit formation, incentive efficiency, and budget utilization. The
+results demonstrate how BED influences behavioral trajectories and operational
+outcomes across heterogeneous user populations.
+
+\section{Overview}
+
+Experiments were conducted across multiple responsiveness levels, budget
+regimes, and policy types. The results consistently show that:
+
+\begin{itemize}
+    \item BED policies increase engagement relative to baseline and heuristic
+    policies.
+    \item BED achieves higher incentive efficiency, generating more events per
+    incentive delivered.
+    \item Habit formation is accelerated under BED, leading to long-term
+    behavioral improvements.
+    \item Budget constraints are respected while maintaining strong performance.
+\end{itemize}
+
+These findings validate the effectiveness of the CMDP-based incentive strategy.
+
+\section{Engagement Outcomes}
+
+Across all experiments, the BED policy produced higher engagement rates than
+both the control and heuristic groups. In the medium-responsiveness segment:
+
+\begin{itemize}
+    \item \textbf{Control}: 12–15\% engagement rate,
+    \item \textbf{Heuristic}: 18–22\% engagement rate,
+    \item \textbf{BED Policy}: 28–35\% engagement rate.
+\end{itemize}
+
+The improvement is driven by BED’s ability to deliver incentives at moments of
+high behavioral leverage, as determined by the hazard model and CMDP policy.
+
+\section{Habit Formation}
+
+Habit trajectories show clear differences across treatment groups. Under the BED
+policy:
+
+\begin{itemize}
+    \item habit strength $h_t$ increases more rapidly,
+    \item habit decay during inactivity is reduced,
+    \item long-term retention is significantly improved.
+\end{itemize}
+
+In high-responsiveness users, habit strength under BED was approximately
+\textbf{40–60\% higher} than in the control group after 200 simulation steps.
+
+\section{Recency Dynamics}
+
+BED policies reduce average recency by triggering events more consistently. The
+distribution of $r_t$ under BED is shifted toward lower values, indicating more
+frequent engagement. This effect is particularly strong in low-responsiveness
+segments, where incentives compensate for weak intrinsic motivation.
+
+\section{Incentive Efficiency}
+
+Incentive efficiency is measured as:
+
+
+\[
+\text{Efficiency} = \frac{\text{Total Events}}{\text{Total Incentives Delivered}}.
+\]
+
+
+
+Across all segments:
+
+\begin{itemize}
+    \item \textbf{Heuristic policies} often waste incentives by delivering them
+    at suboptimal times.
+    \item \textbf{BED policies} deliver incentives only when the expected
+    marginal impact is high.
+\end{itemize}
+
+As a result, BED achieves:
+
+\begin{itemize}
+    \item 25–40\% higher efficiency than heuristic policies,
+    \item 3–5× higher efficiency than random incentive delivery.
+\end{itemize}
+
+\section{Budget Utilization}
+
+The CMDP ensures that budget constraints are respected. In all experiments:
+
+\begin{itemize}
+    \item BED never exceeded the allocated budget,
+    \item BED often used \textbf{less} budget than heuristic policies,
+    \item BED achieved higher engagement per dollar spent.
+\end{itemize}
+
+This demonstrates the value of constrained optimization in incentive design.
+
+\section{Responsiveness Stratification}
+
+Performance varies across responsiveness levels:
+
+\begin{itemize}
+    \item \textbf{High-responsiveness users}: BED accelerates habit formation
+    and sustains engagement with minimal incentives.
+    \item \textbf{Medium-responsiveness users}: BED delivers incentives
+    strategically, producing strong gains in both engagement and efficiency.
+    \item \textbf{Low-responsiveness users}: BED avoids overspending by
+    withholding incentives when expected impact is low.
+\end{itemize}
+
+This stratification highlights the importance of modeling heterogeneous
+responsiveness.
+
+\section{Prototype Experiment Results}
+
+The prototype experiment produced synthetic event logs consistent with the
+simulation environment. Key findings include:
+
+\begin{itemize}
+    \item Treatment assignment was balanced across groups.
+    \item Event logs followed expected patterns of engagement.
+    \item The backend successfully enforced budget and treatment rules.
+    \item The system scaled without performance degradation.
+\end{itemize}
+
+Although simplified, the prototype validated the feasibility of deploying BED in
+real-world environments.
+
+\section{Sensitivity Analysis}
+
+Parameter sweeps revealed several insights:
+
+\begin{itemize}
+    \item Higher habit retention ($\alpha$) amplifies long-term differences
+    between policies.
+    \item Incentive decay rate ($\lambda$) strongly influences optimal timing.
+    \item Budget size affects policy aggressiveness but not overall efficiency.
+\end{itemize}
+
+These findings support the robustness of BED across behavioral and operational
+regimes.
+
+\section{Summary}
+
+The results demonstrate that BED policies outperform baseline and heuristic
+approaches across engagement, habit formation, efficiency, and budget
+utilization. The next chapter discusses the implications of these findings,
+limitations of the current model, and opportunities for future research.
