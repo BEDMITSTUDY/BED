@@ -1,0 +1,26 @@
+\chapter{Prototype System Flow}
+
+\section{QR-to-Cloud Flow}
+
+\begin{enumerate}
+    \item User scans QR code.
+    \item Static HTML page loads.
+    \item Page triggers POST request to backend.
+    \item Backend assigns treatment.
+    \item Event is logged to Firestore.
+\end{enumerate}
+
+\section{Event Log Structure (Text Description)}
+
+A rectangular block labeled ``Event Log'' contains fields:
+
+\begin{itemize}
+    \item timestamp
+    \item event\_type
+    \item treatment\_group
+    \item bed\_tokens
+    \item node\_id
+    \item action\_id
+\end{itemize}
+
+This structure mirrors the simulation event log.
