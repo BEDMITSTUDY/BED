@@ -1,14 +1,25 @@
 \documentclass[12pt,twoside]{mitthesis}
+\usepackage{lgrind}
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
 \usepackage{setspace}
 \usepackage{hyperref}
 \usepackage{booktabs}
 
-\setstretch{1.5}
 \pagestyle{plain}
+\setstretch{1.5}
 
 \begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FRONT MATTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{frontmatter/acknowledgments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN CHAPTERS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \include{chapters/chapter0_abstract}
 \include{chapters/chapter1_introduction}
@@ -22,6 +33,23 @@
 \include{chapters/chapter9_results}
 \include{chapters/chapter10_discussion}
 \include{chapters/chapter11_conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDICES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\include{appendices/appendixA_notation}
+\include{appendices/appendixB_cmdp_derivations}
+\include{appendices/appendixC_prototype_flow}
+\include{appendices/appendixD_experiment_protocols}
+\include{appendices/appendixE_ethics}
+\include{appendices/appendixF_figures}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% REFERENCES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliographystyle{plain}
 \bibliography{references}
