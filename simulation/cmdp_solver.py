@@ -1,21 +1,32 @@
-"""
-BED v3 — CMDP Solver (Public Version)
-
-This module implements a simplified Constrained Markov Decision Process solver.
-It selects actions (incentives) subject to a budget constraint.
-"""
-
 class CMDPSolver:
+    """
+    Simplified public-safe CMDP policy for BED v3.
+
+    Attributes:
+        budget (int): Remaining incentive budget.
+        cost (int): Cost per incentive action.
+    """
+
     def __init__(self, budget=100, cost_per_action=1):
         self.budget = budget
         self.cost = cost_per_action
 
-    def choose_action(self, state):
+    def choose_action(self, state) -> int:
         """
-        Public-safe policy:
-        - If responsiveness is low, offer an incentive (action=1)
-        - If budget is exhausted, no incentive (action=0)
+        Select an action subject to budget constraints.
+
+        Policy:
+            - If budget is exhausted → no incentive.
+            - If responsiveness is below threshold → give incentive.
+            - Otherwise → no incentive.
+
+        Args:
+            state (BehavioralState): Current behavioral state.
+
+        Returns:
+            int: 1 for incentive, 0 otherwise.
         """
+
         if self.budget < self.cost:
             return 0
 
