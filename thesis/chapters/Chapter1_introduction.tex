@@ -1,4 +1,107 @@
 \chapter{Introduction}
 
-This chapter introduces the motivation for demand shaping, the limitations of
-traditional incentive systems, and the contribution of BED v3.
+Modern supply chains, retail systems, and energy networks increasingly depend on
+their ability to shape demand rather than merely respond to it. Traditional
+approaches to demand shaping—such as static discounts, broad loyalty programs,
+or heuristic promotional rules—fail to account for the dynamic and behavioral
+nature of consumer decision-making. As a result, organizations often deploy
+incentives inefficiently, overspend on promotions, and miss opportunities to
+influence long-term behavioral patterns.
+
+The Behavioral Engine for Demand (BED) addresses these limitations by providing
+a closed-loop, state-based, and optimization-driven framework for incentive
+design. BED models individual behavior using latent variables that capture
+recency, habit, and responsiveness, and it allocates incentives through a
+Constrained Markov Decision Process (CMDP) that respects budget and fairness
+constraints. This thesis presents BED v3, the most complete and integrated
+version of the framework to date, combining behavioral modeling, simulation,
+prototype implementation, and experimental design into a unified research
+architecture.
+
+\section{Motivation}
+
+Organizations increasingly recognize that consumer behavior is shaped by
+patterns of engagement, habit formation, and responsiveness to incentives.
+However, most operational systems treat incentives as static levers rather than
+dynamic interventions. Three challenges motivate the development of BED:
+
+\begin{enumerate}
+    \item \textbf{Behavioral complexity}: Consumers exhibit recency effects,
+    habit formation, and heterogeneous responsiveness that evolve over time.
+    \item \textbf{Operational constraints}: Incentives must be allocated under
+    strict budget, fairness, and exposure constraints.
+    \item \textbf{Lack of closed-loop systems}: Most incentive programs do not
+    adapt to real-time behavioral feedback or optimize long-term outcomes.
+\end{enumerate}
+
+These challenges create a gap between behavioral theory and operational
+practice. BED aims to bridge this gap by integrating behavioral modeling with
+optimization and experimentation.
+
+\section{Research Questions}
+
+This thesis investigates the following research questions:
+
+\begin{itemize}
+    \item How can individual behavior be represented as a Markovian state that
+    captures recency, habit, and responsiveness?
+    \item How do incentives influence state transitions, and how can these
+    dynamics be modeled using a hazard-based framework?
+    \item How can a CMDP be formulated to allocate incentives optimally under
+    budget constraints?
+    \item How can simulation be used to evaluate the performance of incentive
+    policies before real-world deployment?
+    \item What prototype architecture enables safe, scalable, and privacy-aware
+    experimentation?
+\end{itemize}
+
+These questions guide the structure of the thesis and the development of BED v3.
+
+\section{Contributions}
+
+This thesis makes four primary contributions:
+
+\begin{enumerate}
+    \item \textbf{Behavioral State Model}: A formal representation of recency,
+    habit, and responsiveness as latent behavioral variables with interpretable
+    update rules.
+    \item \textbf{CMDP Formulation}: A constrained optimization framework for
+    incentive allocation that balances behavioral impact with budgetary limits.
+    \item \textbf{Simulation Environment}: A complete simulation engine that
+    integrates behavioral dynamics, hazard modeling, and policy evaluation.
+    \item \textbf{Prototype Implementation}: A QR-to-cloud prototype that
+    demonstrates how BED can be deployed in real-world settings using
+    serverless infrastructure.
+\end{enumerate}
+
+Together, these components form a unified research framework for closed-loop
+demand shaping.
+
+\section{Thesis Structure}
+
+The remainder of this thesis is organized as follows:
+
+\begin{itemize}
+    \item \textbf{Chapter 2} reviews the behavioral, operational, and
+    reinforcement learning foundations of BED.
+    \item \textbf{Chapter 3} presents the system architecture and conceptual
+    design of the Behavioral Engine for Demand.
+    \item \textbf{Chapter 4} defines the behavioral state model and its update
+    dynamics.
+    \item \textbf{Chapter 5} formulates the incentive allocation problem as a
+    Constrained Markov Decision Process.
+    \item \textbf{Chapter 6} describes the simulation environment used to
+    evaluate BED policies.
+    \item \textbf{Chapter 7} documents the prototype architecture and
+    implementation.
+    \item \textbf{Chapter 8} outlines the experimental design and evaluation
+    methodology.
+    \item \textbf{Chapter 9} presents simulation results and behavioral
+    trajectories.
+    \item \textbf{Chapter 10} discusses implications, limitations, and
+    extensions.
+    \item \textbf{Chapter 11} concludes with contributions and future work.
+\end{itemize}
+
+This structure reflects the integrated nature of BED v3, combining theory,
+simulation, and prototype implementation into a cohesive research contribution.
