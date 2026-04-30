@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BED Prototype</title>
+</head>
+<body>
+  <h1>BED Prototype Event</h1>
+  <p>Submitting event...</p>
+
+  <script>
+    fetch("https://YOUR_CLOUD_FUNCTION_URL", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        event_type: "scan",
+        timestamp: Date.now()
+      })
+    });
+  </script>
+</body>
+</html>
