@@ -1,0 +1,164 @@
+\chapter{Discussion}
+
+The results presented in Chapter 9 demonstrate that the Behavioral Engine for
+Demand (BED) is an effective, efficient, and fair system for shaping the timing
+of user actions. This chapter interprets those results, connects them to the
+theoretical foundations of BED, and discusses their implications for real-world
+deployment, scalability, and future research.
+
+\section{Overview}
+
+BED reframes demand shaping as a closed-loop control problem in which incentives
+serve as interventions that modify behavioral state trajectories. The
+combination of a behavioral state model, hazard-based event prediction, and a
+CMDP policy engine enables BED to deliver incentives at moments of maximum
+behavioral leverage. The discussion below synthesizes insights from simulation,
+prototype experiments, and theoretical analysis.
+
+\section{Interpretation of Behavioral Results}
+
+\subsection{Timing Matters More Than Magnitude}
+
+A central finding is that the \emph{timing} of incentives has a greater impact
+on engagement than the \emph{magnitude} of incentives. This aligns with the
+hazard model structure, where incentive effectiveness decays exponentially with
+time since delivery. BED’s CMDP policy exploits this by delivering incentives
+when:
+
+\begin{itemize}
+    \item recency is high,
+    \item habit is weakening,
+    \item responsiveness is favorable,
+    \item incentive decay is minimal.
+\end{itemize}
+
+This timing-optimized strategy explains why BED outperforms heuristic policies
+that rely on fixed thresholds or periodic incentives.
+
+\subsection{Habit Formation as a Long-Term Lever}
+
+The results show that BED accelerates habit formation by strategically
+reinforcing engagement events. Habit strength $h_t$ grows more rapidly under BED
+because incentives are delivered when the marginal impact on habit formation is
+highest. This creates a compounding effect: stronger habits lead to more
+engagement, which further strengthens habits.
+
+\subsection{Responsiveness Heterogeneity}
+
+The stratified results highlight the importance of modeling heterogeneous
+responsiveness. BED adapts to individual differences by:
+
+\begin{itemize}
+    \item delivering fewer incentives to low-responsiveness users,
+    \item exploiting high-responsiveness users’ sensitivity to incentives,
+    \item balancing budget allocation across segments.
+\end{itemize}
+
+This adaptive behavior is a key advantage over static or heuristic policies.
+
+\section{CMDP Interpretation}
+
+\subsection{Budget Efficiency}
+
+The CMDP ensures that incentives are delivered only when expected impact exceeds
+cost. This leads to:
+
+\begin{itemize}
+    \item higher engagement per dollar spent,
+    \item lower overall budget usage,
+    \item avoidance of wasteful incentives.
+\end{itemize}
+
+The Lagrangian relaxation framework provides a principled way to trade off
+reward and cost, resulting in policies that are both effective and
+budget-compliant.
+
+\subsection{Fairness Considerations}
+
+The fairness constraint ensures that incentive exposure is balanced across user
+segments. This is particularly important in domains such as public health or
+education, where equitable treatment is essential. The simulation results show
+that BED maintains fairness without sacrificing performance.
+
+\section{Stability and Control-Theoretic Interpretation}
+
+Your uploaded notes highlight a key insight:
+
+\begin{quote}
+BED is not merely reactive; it is a stabilizing controller. Incentive decay acts
+as a negative feedback mechanism, and the system converges to a bounded
+behavioral equilibrium.
+\end{quote}
+
+This interpretation provides a deeper theoretical foundation for BED:
+
+\begin{itemize}
+    \item \textbf{Negative feedback}: Incentive decay prevents runaway
+    reinforcement and stabilizes behavior.
+    \item \textbf{Bounded equilibrium}: Recency, habit, and responsiveness
+    converge to a stable region under BED policies.
+    \item \textbf{Adaptive control}: The CMDP policy adjusts incentive timing to
+    maintain behavioral stability.
+\end{itemize}
+
+This perspective strengthens the theoretical contribution of BED and positions
+it within the broader literature on control systems and adaptive decision-making.
+
+\section{Prototype Implications}
+
+The prototype experiment demonstrates that BED can be deployed using lightweight
+infrastructure:
+
+\begin{itemize}
+    \item QR-triggered events,
+    \item serverless backend,
+    \item Firestore event logging.
+\end{itemize}
+
+Although simplified, the prototype validates:
+
+\begin{itemize}
+    \item real-time treatment assignment,
+    \item scalable event logging,
+    \item safe and privacy-preserving data collection.
+\end{itemize}
+
+This provides a practical foundation for field experiments and pilot deployments.
+
+\section{Limitations}
+
+Several limitations should be acknowledged:
+
+\begin{itemize}
+    \item The behavioral model is simplified and may not capture all real-world
+    factors.
+    \item Responsiveness is treated as latent and static in the public-safe
+    version.
+    \item The prototype does not track longitudinal behavior.
+    \item The CMDP policy is simplified for public release.
+\end{itemize}
+
+These limitations suggest opportunities for future research.
+
+\section{Future Research Directions}
+
+Future work may explore:
+
+\begin{itemize}
+    \item dynamic estimation of responsiveness,
+    \item multi-action incentive menus,
+    \item contextual CMDPs with richer state representations,
+    \item integration with real-world transactional systems,
+    \item reinforcement learning approaches for policy improvement,
+    \item stability analysis using Lyapunov methods.
+\end{itemize}
+
+These extensions would enhance the robustness and applicability of BED.
+
+\section{Summary}
+
+This chapter interpreted the results of the BED experiments and connected them
+to the theoretical and practical foundations of the framework. BED demonstrates
+strong behavioral lift, high incentive efficiency, fairness compliance, and
+budget-bounded optimality. The next chapter concludes the thesis and outlines
+the broader implications of this work.
