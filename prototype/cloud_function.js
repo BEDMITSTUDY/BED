@@ -1,16 +1,39 @@
-exports.bedEvent = async (req, res) => {
-  const event = {
-    timestamp: Date.now(),
-    event_type: req.body.event_type || "scan",
-    treatment_group: Math.random() < 0.5 ? "control" : "treatment",
-    bed_tokens: Math.random() < 0.5 ? 1 : 0
-  };
+const admin = require("firebase-admin");
+admin.initializeApp();
+const db = admin.firestore();
 
-  console.log("BED Event:", event);
+exports.logEvent = async (req, res) => {
+  try {
+    const { unit, user } = req.query;
 
-  res.json({
-    status: "ok",
-    assigned_tokens: event.bed_tokens,
-    treatment: event.treatment_group
-  });
+    // 1. Compute reward (simple public-safe logic)
+    const rewardAmount = 1; // 1 BED token (placeholder unit)
+
+    // 2. Log event
+    await db.collection("events").add({
+      unit: unit,
+      user: user || "anonymous",
+      timestamp: Date.now(),
+      reward: rewardAmount
+    });
+
+    // 3. Write real reward entry
+    const rewardRef = await db.collection("rewards").add({
+      user: user || "anonymous",
+      unit: unit,
+      reward: rewardAmount,
+      redeemed: false,
+      timestamp: Date.now()
+    });
+
+    // 4. Return reward ID so static page can fetch it
+    res.status(200).send({
+      reward_id: rewardRef.id,
+      reward: rewardAmount
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error logging event");
+  }
 };
