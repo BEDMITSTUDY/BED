@@ -1,185 +1,353 @@
-\chapter{Experiment Design}
+8.1 Purpose of the Simulation Environment
+The BED v3 simulation environment serves as a computational testbed for validating incentive policies before committing to costly field deployment. As stated in your uploaded document:
 
-This chapter presents the experimental design used to evaluate the Behavioral
-Engine for Demand (BED) across simulation and prototype environments. The goal
-is to assess how different incentive policies influence behavioral trajectories,
-budget utilization, and long-term engagement. The experiment design integrates
-synthetic simulations, controlled treatment assignment, and structured event
-logging to ensure reproducibility and statistical rigor.
+“The BED v3 simulation environment serves as a computational testbed for validating incentive policies…”
 
-\section{Objectives}
+The simulation allows researchers to:
 
-The experiments are designed to answer four core questions:
+evaluate policy performance under controlled conditions
 
-\begin{enumerate}
-    \item \textbf{Effectiveness}: Do BED policies increase engagement relative
-    to baseline or heuristic policies?
-    \item \textbf{Efficiency}: How many incentives are required to achieve a
-    given level of engagement?
-    \item \textbf{Behavioral Impact}: How do incentives influence habit
-    formation and responsiveness over time?
-    \item \textbf{Budget Performance}: How well does the CMDP respect budget
-    constraints while maximizing long-term outcomes?
-\end{enumerate}
+test habit dynamics and behavioral response
 
-These objectives guide the structure of both simulation-based and prototype
-experiments.
+quantify reward spend and cost‑effectiveness
 
-\section{Experimental Conditions}
+perform sensitivity analysis
 
-Experiments are conducted under multiple conditions to evaluate robustness:
+conduct power analysis for field experiments
 
-\begin{itemize}
-    \item \textbf{Responsiveness Levels}: low, medium, and high responsiveness
-    segments.
-    \item \textbf{Budget Levels}: low-budget, medium-budget, and high-budget
-    regimes.
-    \item \textbf{Policy Types}: BED CMDP policy, heuristic policies, and
-    no-incentive baseline.
-    \item \textbf{Time Horizons}: short (50 steps), medium (200 steps), and
-    long (500+ steps).
-\end{itemize}
+ensure fairness and budget constraints are respected
 
-These conditions allow for factorial comparisons across behavioral and
-operational dimensions.
+This chapter defines the full simulation architecture, behavioral model, experimental conditions, and evaluation metrics.
 
-\section{Treatment Groups}
-\begin{table}[h!]
-\centering
-\caption{Incentive menu used in prototype and simulation experiments.}
-\begin{tabular}{lll}
-\toprule
-\textbf{Incentive} & \textbf{BED Token Value} & \textbf{Equivalent Reward} \\
-\midrule
-Low-tier reward & 1 & \$0.10 \\
-Medium-tier reward & 3 & \$0.50 \\
-High-tier reward & 5 & \$1.00 \\
-Surge reward & 10 & \$2.50 \\
-\bottomrule
-\end{tabular}
-\label{tab:incentive_menu}
-\end{table}
+8.2 Simulation Overview
+The simulation is a discrete‑time, agent‑based environment that mirrors the real BED v3 prototype:
 
-The experiment uses a multi-arm structure:
+Each agent represents a consumer.
 
-\begin{itemize}
-    \item \textbf{Control Group}: no incentives delivered.
-    \item \textbf{Heuristic Group}: incentives delivered based on simple rules
-    (e.g., recency threshold).
-    \item \textbf{BED Policy Group}: incentives delivered using the CMDP policy.
-\end{itemize}
+Each day represents a decision opportunity.
 
-This structure enables causal inference regarding the impact of BED policies.
+Incentives influence event probability.
 
-\section{Simulation Workflow}
+Events update habit state.
 
-The simulation experiment follows a structured workflow:
+Policies determine reward multipliers.
 
-\begin{enumerate}
-    \item \textbf{Initialize Population}: generate synthetic users with
-    heterogeneous responsiveness.
-    \item \textbf{Assign Treatment Group}: each user is assigned to control,
-    heuristic, or BED policy.
-    \item \textbf{Run Simulation}: execute the simulation for a fixed number of
-    steps.
-    \item \textbf{Log Trajectories}: record state, action, event, and budget
-    usage at each step.
-    \item \textbf{Compute Metrics}: evaluate engagement, habit formation,
-    incentive efficiency, and budget utilization.
-\end{enumerate}
+Metrics track behavioral and economic outcomes.
 
-This workflow mirrors the structure of the simulation environment described in
-Chapter 6.
+This environment is intentionally lightweight, enabling rapid iteration and reproducibility.
 
-\section{Prototype Experiment Workflow}
+8.3 State Space
+Each simulated user is represented by a behavioral state vector:
 
-The prototype experiment uses real QR scans to generate synthetic events. The
-workflow is:
+𝑆
+𝑡
+=
+(
+𝐻
+𝑡
+,
+𝑅
+𝑡
+,
+𝜌
+)
+Where:
 
-\begin{enumerate}
-    \item \textbf{QR Scan}: user scans a QR code.
-    \item \textbf{Backend Trigger}: the serverless backend assigns a treatment.
-    \item \textbf{Event Logging}: the event is written to Firestore.
-    \item \textbf{Offline Analysis}: logs are exported and analyzed using the
-    same metrics as the simulation.
-\end{enumerate}
+𝐻
+𝑡
+ — habit strength
 
-Although simplified, this workflow demonstrates how BED can be deployed in
-real-world environments.
+𝑅
+𝑡
+ — recency (days since last event)
 
-\section{Metrics}
+𝜌
+ — responsiveness to incentives
 
-The following metrics are used to evaluate policy performance:
+Your uploaded appendix states:
 
-\subsection{Engagement Metrics}
+“state definitions, transition functions, reward functions, incentive effects, habit dynamics…”
 
-\begin{itemize}
-    \item \textbf{Engagement Rate}: proportion of time steps with events.
-    \item \textbf{Time-to-Event}: average number of steps between events.
-\end{itemize}
+This chapter formalizes them.
 
-\subsection{Behavioral Metrics}
+8.4 Behavioral Model
+8.4.1 Event Probability
+Event probability follows a logistic response:
 
-\begin{itemize}
-    \item \textbf{Habit Trajectory}: evolution of $h_t$ over time.
-    \item \textbf{Recency Distribution}: distribution of $r_t$ across users.
-\end{itemize}
+𝑃
+(
+𝑒
+𝑣
+𝑒
+𝑛
+𝑡
+𝑡
+=
+1
+)
+=
+𝜎
+(
+𝛼
+𝐻
+𝑡
++
+𝛽
+)
+Where:
 
-\subsection{Policy Metrics}
+α — sensitivity to habit
 
-\begin{itemize}
-    \item \textbf{Incentive Efficiency}: events per incentive delivered.
-    \item \textbf{Budget Utilization}: fraction of budget spent.
-    \item \textbf{Fairness Index}: variance in incentive exposure across
-    segments.
-\end{itemize}
+β — baseline bias
 
-\section{Statistical Methods}
+σ — logistic function
 
-To ensure rigorous evaluation, the following methods are used:
+This matches the behavioral model in your simulation code.
 
-\begin{itemize}
-    \item \textbf{Difference-in-Means}: compare engagement rates across groups.
-    \item \textbf{Survival Analysis}: evaluate time-to-event distributions.
-    \item \textbf{ANOVA}: test differences across multiple treatment arms.
-    \item \textbf{Bootstrap Confidence Intervals}: quantify uncertainty in
-    estimates.
-\end{itemize}
+8.4.2 Habit Dynamics
+Habit evolves according to:
 
-These methods support robust inference even under stochastic behavioral
-dynamics.
+𝐻
+𝑡
++
+1
+=
+𝐻
+𝑡
++
+𝜂
+⋅
+𝑒
+𝑣
+𝑒
+𝑛
+𝑡
+𝑡
+−
+𝛿
+Where:
 
-\section{Parameter Sweeps}
+η — habit gain per event
 
-To explore sensitivity, experiments include parameter sweeps over:
+δ — habit decay per day
 
-\begin{itemize}
-    \item habit retention $\alpha$,
-    \item reinforcement increment $\gamma$,
-    \item incentive decay rate $\lambda$,
-    \item hazard model coefficients,
-    \item CMDP budget $B$.
-\end{itemize}
+This is consistent with your Firestore policy fields and simulation code.
 
-Parameter sweeps reveal how BED performance varies across behavioral and
-operational regimes.
+8.4.3 Recency Dynamics
+𝑅
+𝑡
++
+1
+=
+{
+0
+if 
+𝑒
+𝑣
+𝑒
+𝑛
+𝑡
+𝑡
+=
+1
+𝑅
+𝑡
++
+1
+otherwise
+Recency is used for segmentation and fairness analysis.
 
-\section{Reproducibility}
+8.5 Policy Engine
+The policy engine mirrors the real Firebase prototype.
 
-All experiments are reproducible due to:
+8.5.1 Habit Zones
+Low habit: 
+𝐻
+𝑡
+<
+low threshold
 
-\begin{itemize}
-    \item fixed random seeds,
-    \item configuration files stored in YAML,
-    \item deterministic state update rules,
-    \item logged trajectories for all runs.
-\end{itemize}
+Medium habit: between thresholds
 
-This ensures that results can be replicated and audited.
+High habit: 
+𝐻
+𝑡
+>
+high threshold
 
-\section{Summary}
+8.5.2 Reward Multiplier
+𝑅
+𝑡
+=
+𝑏
+𝑎
+𝑠
+𝑒
+_
+𝑟
+𝑒
+𝑤
+𝑎
+𝑟
+𝑑
+×
+𝑓
+(
+𝐻
+𝑡
+)
+Where:
 
-This chapter described the experimental design used to evaluate BED policies in
-both simulation and prototype environments. The next chapter presents the
-results of these experiments, including behavioral trajectories, policy
-performance, and budget utilization.
+low habit → boosted multiplier
+
+medium habit → baseline
+
+high habit → soft‑budget reduction
+
+This matches your Firestore policy fields:
+
+soft_budget_factor
+
+responsiveness_weight
+
+habit_low_threshold
+
+habit_high_threshold
+
+8.6 Simulation Loop
+For each day 
+𝑡
+:
+
+Compute event probability
+
+Sample event (0/1)
+
+Compute reward
+
+Update habit
+
+Update recency
+
+Log metrics
+
+This loop is identical to your Python simulation code.
+
+8.7 Experimental Conditions
+MIT expects simulation to test multiple conditions:
+
+8.7.1 Baseline Policy (EXP001)
+Your default Firestore policy.
+
+8.7.2 Treatment Policies (EXP002, EXP003)
+Only added when testing:
+
+higher habit reinforcement
+
+lower reward spend
+
+fairness constraints
+
+budget constraints
+
+8.7.3 Stress Tests
+high decay
+
+low responsiveness
+
+high noise
+
+extreme habit thresholds
+
+8.7.4 Sensitivity Analysis
+Vary:
+
+η
+
+δ
+
+soft budget
+
+responsiveness
+
+thresholds
+
+8.8 Metrics
+Behavioral Metrics
+event frequency
+
+return time
+
+habit trajectory
+
+hazard lift
+
+Economic Metrics
+total reward spend
+
+cost per incremental event
+
+budget adherence
+
+Fairness Metrics
+parity across segments
+
+constraint violations
+
+differential reward allocation
+
+8.9 Validation Criteria
+Your uploaded document states:
+
+“Policy outperforms baselines… results are robust across segments… fairness constraints are respected…”
+
+The simulation validates:
+
+effectiveness
+
+efficiency
+
+fairness
+
+robustness
+
+reproducibility
+
+A policy is considered valid if:
+
+it increases event frequency
+
+it maintains or reduces cost per event
+
+it respects budget constraints
+
+it does not disproportionately benefit or penalize segments
+
+8.10 Summary
+This chapter defined the full simulation environment for BED v3:
+
+state space
+
+behavioral model
+
+policy engine
+
+simulation loop
+
+experimental conditions
+
+metrics
+
+validation criteria
+
+This simulation is now ready for:
+
+policy comparison
+
+sensitivity analysis
+
+power analysis
+
+integration into the BED v3 Master Document
+
+CTL review
